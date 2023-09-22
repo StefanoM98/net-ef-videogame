@@ -11,7 +11,7 @@
                 Console.WriteLine($@"
 1: Inserire un nuovo videogioco;
 2: Ricercare un videogioco per il suo ID;
-3: ricercare tutti i videogiochi aventi il nome contenente una determinata stringa inserita in input
+3: Ricercare tutti i videogiochi aventi il nome contenente una determinata stringa inserita in input
 4: Cancellare un videogioco;
 5: Inserisci una nuova Software House
 6: Esci dal gestionale;
@@ -24,7 +24,7 @@
                         Console.WriteLine("Inserisci il nome del videogioco che vuoi inserire:");
                         string name = Console.ReadLine();
 
-                        Console.WriteLine("Inserisci òla descrizione del videogioco che vuoi inserire:");
+                        Console.WriteLine("Inserisci la descrizione del videogioco che vuoi inserire:");
                         string overview = Console.ReadLine();
 
                         Console.WriteLine("Inserisci la data di rilascio del videogioco che vuoi inserire:");
@@ -93,8 +93,31 @@
 
                         break;
                     case 4:
+
+                        Console.Write("Inserisci l'id del gioco che vuoi eliminare dal sistema --> ");
+                        long videogameid = long.Parse(Console.ReadLine());
+
+                        try
+                        {
+                            using (VideogameContext db = new VideogameContext())
+                            {
+                                Videogioco videogioco = db.Videogiochi.Where(videogioco => videogioco.VideogameId == videogameid).First();
+
+                                db.Remove(videogioco);
+                                db.SaveChanges();
+
+                                Console.WriteLine("Il videogioco è stato eliminato dal sistema");
+                            }
+                        } catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+
                         break;
                     case 5:
+
+                        Console.WriteLine("");
+
                         break;
                     case 6:
                         return;
