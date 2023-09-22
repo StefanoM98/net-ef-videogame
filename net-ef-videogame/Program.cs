@@ -79,6 +79,17 @@
                         }
                         break;
                     case 3:
+                        Console.WriteLine("Inserisci dei caratteri");
+                        string stringa = Console.ReadLine();
+                        using (VideogameContext db = new VideogameContext())
+                        {
+                            List<Videogioco> videogioco = db.Videogiochi.Where(videogioco => videogioco.Name.StartsWith(stringa)).ToList<Videogioco>();
+
+                            foreach (Videogioco videogiocoTrovato in videogioco)
+                            {
+                                Console.WriteLine($"{videogiocoTrovato.Name}");
+                            }
+                        }
 
                         break;
                     case 4:
