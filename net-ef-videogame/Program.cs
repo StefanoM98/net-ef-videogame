@@ -116,9 +116,40 @@
                         break;
                     case 5:
 
-                        Console.WriteLine("");
+                        Console.Write("Inserisci il nome della software house --> ");
+                        string nomeHouse = Console.ReadLine();
+
+                        Console.Write("Inserisci il nome della città di provenienza della software house --> ");
+                        string cittaHouse = Console.ReadLine();
+
+                        Console.Write("Inserisci il nome del paese della software house --> ");
+                        string paeseHouse = Console.ReadLine();
+
+                        Software_house nuovaSoftwareHouse = new Software_house()
+                        {
+                            Name = nomeHouse,
+                            City = cittaHouse,
+                            Country = paeseHouse
+                        };
+
+                        using (VideogameContext db = new VideogameContext())
+                        {
+                            try
+                            {
+                                db.Add(nuovaSoftwareHouse);
+                                db.SaveChanges();
+
+                                Console.WriteLine("La software house è stata creata");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
 
                         break;
+
+                        
                     case 6:
                         return;
                         break;
