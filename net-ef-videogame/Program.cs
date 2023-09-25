@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Benvenuto nel gestionale gamestop!");
+            Console.WriteLine("Benvenuto nel gestionale");
 
             while (true)
             {
@@ -21,25 +21,7 @@
                 switch (opzioneSelezionata)
                 {
                     case 1:
-                        Console.WriteLine("Inserisci il nome del videogioco che vuoi inserire:");
-                        string name = Console.ReadLine();
-
-                        Console.WriteLine("Inserisci la descrizione del videogioco che vuoi inserire:");
-                        string overview = Console.ReadLine();
-
-                        Console.WriteLine("Inserisci la data di rilascio del videogioco che vuoi inserire:");
-                        DateTime realease_date = DateTime.Parse(Console.ReadLine());
-
-                        Console.WriteLine("Inserisci la software house del videogioco che vuoi inserire:");
-                        long software_house = long.Parse(Console.ReadLine());
-
-                        Videogioco nuovoVideogioco = new Videogioco()
-                        {
-                            Name = name,
-                            Overview = overview,
-                            Release_date = realease_date,
-                            Software_houseId = software_house
-                        };
+                        Videogioco nuovoVideogioco = VideoGameManager.CreazioneVideogioco();
 
                         using (VideogameContext db = new VideogameContext())
                         {
@@ -83,7 +65,7 @@
                         string stringa = Console.ReadLine();
                         using (VideogameContext db = new VideogameContext())
                         {
-                            List<Videogioco> videogioco = db.Videogiochi.Where(videogioco => videogioco.Name.StartsWith(stringa)).ToList<Videogioco>();
+                            List<Videogioco> videogioco = db.Videogiochi.Where(videogioco => videogioco.Name.Contains(stringa)).ToList<Videogioco>();
 
                             foreach (Videogioco videogiocoTrovato in videogioco)
                             {
@@ -116,21 +98,7 @@
                         break;
                     case 5:
 
-                        Console.Write("Inserisci il nome della software house --> ");
-                        string nomeHouse = Console.ReadLine();
-
-                        Console.Write("Inserisci il nome della città di provenienza della software house --> ");
-                        string cittaHouse = Console.ReadLine();
-
-                        Console.Write("Inserisci il nome del paese della software house --> ");
-                        string paeseHouse = Console.ReadLine();
-
-                        Software_house nuovaSoftwareHouse = new Software_house()
-                        {
-                            Name = nomeHouse,
-                            City = cittaHouse,
-                            Country = paeseHouse
-                        };
+                        Software_house nuovaSoftwareHouse = VideoGameManager.CreazioneSoftwareHouse();
 
                         using (VideogameContext db = new VideogameContext())
                         {
